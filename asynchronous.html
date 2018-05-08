@@ -37,28 +37,28 @@
         // }
         // getRecipe()
 
-        const getIDs = new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve([523, 883, 432, 974])
-            }, 1500)
-        })
-        const getRecipe = recID => {
-            return new Promise((resolve, reject) => {
-                setTimeout((id) => {
-                    const recipe = { title: 'Fresh tomato pasta', publisher: 'Jonas'}
-                    resolve(`${id}: ${recipe.title}`)
-                }, 1500, recID) 
-            })
-        }
+        // const getIDs = new Promise((resolve, reject) => {
+        //     setTimeout(() => {
+        //         resolve([523, 883, 432, 974])
+        //     }, 1500)
+        // })
+        // const getRecipe = recID => {
+        //     return new Promise((resolve, reject) => {
+        //         setTimeout((id) => {
+        //             const recipe = { title: 'Fresh tomato pasta', publisher: 'Jonas'}
+        //             resolve(`${id}: ${recipe.title}`)
+        //         }, 1500, recID) 
+        //     })
+        // }
 
-        const getRelated = publisher => {
-            return new Promise((resolve, reject) => {
-                setTimeout(pub => {
-                    const recipe = { title: 'Italian Pizza', publisher: 'Johnas'}
-                    resolve(`${pub}: ${recipe.title}`)
-                }, 1500, publisher)
-            })
-        }
+        // const getRelated = publisher => {
+        //     return new Promise((resolve, reject) => {
+        //         setTimeout(pub => {
+        //             const recipe = { title: 'Italian Pizza', publisher: 'Johnas'}
+        //             resolve(`${pub}: ${recipe.title}`)
+        //         }, 1500, publisher)
+        //     })
+        // }
 
         // getIDs
         // .then(IDs => {
@@ -76,17 +76,34 @@
         //     console.log(error)
         // })
 
-        async function getRecipeAW() {
-            const IDs = await getIDs()
-            console.log(IDs)
-            const recipe = await getRecipe(IDs[2])
-            console.log(recipe)
-            const related = await getRelated('Jonas')
-            console.log(related)
-            return recipe
+        // async function getRecipeAW() {
+        //     const IDs = await getIDs()
+        //     console.log(IDs)
+        //     const recipe = await getRecipe(IDs[2])
+        //     console.log(recipe)
+        //     const related = await getRelated('Jonas')
+        //     console.log(related)
+        //     return recipe
+        // }
+        // getRecipeAW().then(result => console.log(`${result} is the best ever!`))
+        function getWeather(woeid) {
+            fetch(`https://crossorigin.me/https://www.metaweather.com/api/location/${woeid}/`)
+                .then(result => {
+                    console.log(result)
+                    return result.json()
+                })
+                .then(data => {
+                    console.log(data)
+                    const today =data.consolidated_weather[0]
+                    console.log(`Temperatures in ${data.title} stay between ${today.min_temp} and ${today.max_temp}.`)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
         }
-        getRecipeAW().then(result => console.log(`${result} is the best ever!`))
-
+        getWeather(44418)
+        getWeather(4434352342345234)
+       
     </script>
 </body>
 </html>
